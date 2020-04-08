@@ -11,14 +11,12 @@ import java.io.File
 import java.lang.ref.WeakReference
 
 class StudentsFragment : Fragment() {
+
     private var studentsView: RecyclerView? = null
     private var onStudentClick : ((Student) -> Unit)? = null
     private var students = emptyList<Student>()
-
     private var studentsAdapter : StudentsAdapter? = null
-
     private var studentsLoadTask : StudentsLoadTask? = null
-
     private var listener : StudentsLoadTask.UIListener? = null
 
     override fun onCreateView(
