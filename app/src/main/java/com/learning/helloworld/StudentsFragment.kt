@@ -54,11 +54,11 @@ class StudentsFragment : Fragment() {
         super.onDestroy()
     }
 
-    companion object {
-        fun newInstance(onStudentClick: (Student) -> Unit): StudentsFragment {
-            val fragment = StudentsFragment()
-            fragment.onStudentClick = onStudentClick
-            return fragment
+    companion object StudentsFragmentFactory {
+
+        fun newInstance(onStudentClick: (Student) -> Unit): StudentsFragment
+        = StudentsFragment().apply {
+            this.onStudentClick = onStudentClick
         }
     }
 }

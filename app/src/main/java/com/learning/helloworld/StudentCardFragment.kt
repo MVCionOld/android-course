@@ -27,6 +27,7 @@ class StudentCardFragment : Fragment() {
             .apply{
                 text = arguments?.getString(KEY_LAST_NAME)
             }
+
         return newView
     }
 
