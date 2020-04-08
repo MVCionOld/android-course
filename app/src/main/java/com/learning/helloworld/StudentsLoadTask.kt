@@ -7,19 +7,15 @@ import java.lang.ref.WeakReference
 class StudentsLoadTask(
     private val listener: WeakReference<UIListener>
 ) : AsyncTask<File, Void, List<Student>>() {
+    
     interface UIListener {
         fun onStudentsLoaded(students: List<Student>)
     }
 
     // WORKER THREAD
-    override fun doInBackground(vararg params: File?): List<Student> {
-        if (params.isNullOrEmpty()) {
-            return emptyList()
-        }
-        val file = params[0]!!
-        Thread.sleep(10000)
-        return StudentLoader.loadStudents(file)
-    }
+    override fun doInBackground(vararg params: File?): List<Student> =
+        if (params.isNullOrEmpty()) emptyList()
+        else StudentLoader.loadStudents(params[0]!!)
 
     // UI THREAD
     override fun onPostExecute(result: List<Student>?) {

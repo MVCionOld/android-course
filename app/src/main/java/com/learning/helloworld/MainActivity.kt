@@ -1,9 +1,7 @@
 package com.learning.helloworld
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
-import com.learning.helloworld.LoginActivity.Companion.KEY_LOGIN
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,12 +12,12 @@ class MainActivity : AppCompatActivity() {
             showStudentCard(student)
         }
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, studentsFragment)
+            .add(R.id.fragment_container, studentsFragment)
             .commit()
     }
 
     private fun showStudentCard(student: Student) {
-        val studentCardFragment = StudentCardFragment.newInstance()
+        val studentCardFragment = StudentCardFragment.newInstance(student)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, studentCardFragment)
             .addToBackStack(null)

@@ -1,6 +1,6 @@
 package com.learning.helloworld
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -11,8 +11,10 @@ class StudentViewHolder(
     itemView: ConstraintLayout,
     val onClick : (Student) -> Unit
 ) : RecyclerView.ViewHolder(itemView) {
+
     private var nameTextView : TextView? = itemView.findViewById(R.id.name)
 
+    @SuppressLint("SetTextI18n")
     fun bind(student: Student) {
         nameTextView?.text = "${student.firstName} ${student.lastName}"
         nameTextView?.setOnClickListener {
@@ -25,18 +27,18 @@ class StudentsAdapter(
     var students: List<Student>,
     private val onClick : (Student) -> Unit
 ) : RecyclerView.Adapter<StudentViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {
-        val inflater = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val itemView = inflater.inflate(R.layout.student, parent, false) as ConstraintLayout
-        return StudentViewHolder(itemView, onClick)
-    }
 
-    override fun getItemCount(): Int {
-        return students.size
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder =
+        StudentViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.student, parent, false)
+                    as ConstraintLayout,
+            onClick
+        )
+
+    override fun getItemCount(): Int = students.size
 
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
         holder.bind(students[position])
     }
-
 }
